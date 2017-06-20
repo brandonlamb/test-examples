@@ -1,0 +1,3 @@
+<resources>
+  <Service id="jsonProvier" class-name="com.rationaldevelopers.test.JsonProvider"/>
+</resources>

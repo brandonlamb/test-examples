@@ -1,0 +1,9 @@
+<openejb-jar xmlns="http://www.openejb.org/openejb-jar/1.1"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.openejb.org/openejb-jar/1.1">
+  <!-- This is the control plane for which services to release -->
+  <pojo-deployment class-name="com.walmart.example.rs.ExampleApplication">
+    cxf.jaxrs.providers = com.rationaldevelopers.test.JsonProvider
+    cxf.jaxrs.skip-provider-scanning = true
+  </pojo-deployment>
+</openejb-jar>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+  http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+  <extension qualifier="cube">
+    <property name="connectionMode">STARTORCONNECT</property>
+  </extension>
+
+  <extension qualifier="docker">
+    <property name="machineName">default</property>
+    <property name="serverVersion">1.27</property>
+    <property name="serverUri">https://192.168.99.100:2376</property>
+    <property name="definitionFormat">CUBE</property>
+    <property name="certPath">/Users/rmcguin/.docker/machine/certs</property>
+    <property name="dockerContainers">
+      tomee:
+        buildImage:
+          dockerfileLocation: src/test/resources/tomee
+          noCache: true
+          remove: true
+        restartPolicy:
+          name: failure
+          maximumRetryCount: 1
+        killContainer: true
+        exposedPorts: [8080/tcp]
+        portBindings: [8082->8080/tcp]
+    </property>
+  </extension>
+
+  <container qualifier="tomee" default="true">
+    <configuration>
+      <property name="classifier">ignore</property>
+      <property name="user">tomee</property>
+      <property name="pass">unsecured</property>
+      <property name="deployerProperties">
+        openejb.deployer.binaries.use=true
+        java.naming.security.principal=tomee
+        java.naming.security.credentials=unsecured
+      </property>
+    </configuration>
+  </container>
+
+</arquillian>
